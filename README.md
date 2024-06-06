@@ -184,7 +184,7 @@ Em seguida exporte as credenciais da AWS:
 * `export AWS_ACCESS_KEY_ID=sua_access_key_id`
 * `export AWS_SECRET_ACCESS_KEY=sua_secret_access_key`
   
-- Obs: O export das credenciais é somente um exemplo para fim de testes.
+- Obs: O export das credenciais é somente um exemplo para fins de testes.
     
 Agora é só executar os comandos do terraform:
 
