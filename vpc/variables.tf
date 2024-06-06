@@ -62,5 +62,4 @@ variable "nat-eip" {
 variable "subnet_indices_for_nat" {
   type        = list(number)
   description = "Quantidade a ser criado de acordo com a necessidade fornecendo o indice da quantidade de subnets"
-  #default = []
 }
