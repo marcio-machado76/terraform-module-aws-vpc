@@ -15,7 +15,6 @@ locals {
 }
 
 
-
 module "vpc" {
   source                  = "./vpc"
   region                  = local.region
