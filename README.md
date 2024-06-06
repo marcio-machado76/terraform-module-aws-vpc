@@ -83,7 +83,7 @@ variable "network_acl" {
 }
 ```
 #
-<summary>outputs.tf - Outputs de recursos que serão utilizados em outros módulos.</summary>
+<summary>outputs.tf - Outputs de recursos que podem ser utilizados em outros módulos.</summary>
 
 ```hcl
 output "vpc" {
