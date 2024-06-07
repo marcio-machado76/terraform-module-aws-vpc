@@ -1,5 +1,5 @@
 variable "cidr_vpc" {
-  description = "cidr_vpc da VPC"
+  description = "cidr da VPC"
   type        = string
 }
 
