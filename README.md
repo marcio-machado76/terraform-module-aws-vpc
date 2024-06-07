@@ -164,4 +164,4 @@ No modules.
 | <a name="output_private_subnet"></a> [private\_subnet](#output\_private\_subnet) | Subnet private |
 | <a name="output_public_subnet"></a> [public\_subnet](#output\_public\_subnet) | Subnet public |
 | <a name="output_vpc"></a> [vpc](#output\_vpc) | Idendificador da VPC |
-| <a name="output_vpc_cidrblock"></a> [vpc\_cidrblock](#output\_vpc\_cidrblock) | Idendificador da VPC |
+| <a name="output_vpc_cidrblock"></a> [vpc\_cidrblock](#output\_vpc\_cidrblock) | Range ip da VPC |
