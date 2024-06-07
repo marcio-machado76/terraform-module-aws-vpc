@@ -1,5 +1,5 @@
 output "vpc_cidrblock" {
-  description = "Idendificador da VPC"
+  description = "Range ip da VPC"
   value       = aws_vpc.vpc.cidr_block
 }
 
