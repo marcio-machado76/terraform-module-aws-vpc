@@ -2,14 +2,14 @@ locals {
   region                  = "us-east-1"
   cidr_vpc                = "10.10.0.0/16"
   count_available_subnets = 3 
-  tag_igw                 = "igw_devops"
-  route_table_tag         = "rt-devops"
+  tag_igw                 = "igw_example"
+  route_table_tag         = "rt-example"
   create_nat_gateway      = false 
-  nat_gateway_name        = "natgw-devops"
-  nat-eip                 = "eip-devops"
+  nat_gateway_name        = "natgw-example"
+  nat-eip                 = "eip-example"
   subnet_indices_for_nat  = [0] 
   tags_vpc = {
-    Name        = "vpc-devops"
+    Name        = "vpc-example"
     Environment = "Production"
   }
   
