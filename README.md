@@ -142,7 +142,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_cidr_vpc"></a> [cidr\_vpc](#input\_cidr\_vpc) | cidr\_vpc da VPC | `string` | n/a | yes |
+| <a name="input_cidr_vpc"></a> [cidr\_vpc](#input\_cidr\_vpc) | cidr da VPC | `string` | n/a | yes |
 | <a name="input_count_available_subnets"></a> [count\_available\_subnets](#input\_count\_available\_subnets) | Numero de Zonas de disponibilidade | `number` | n/a | yes |
 | <a name="input_create_nat_gateway"></a> [create\_nat\_gateway](#input\_create\_nat\_gateway) | true ou false de acordo com a necessidade | `bool` | n/a | yes |
 | <a name="input_nat-eip"></a> [nat-eip](#input\_nat-eip) | name para eip | `string` | n/a | yes |
