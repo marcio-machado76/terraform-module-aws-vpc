@@ -4,7 +4,7 @@ provider "aws" {
     tags = {
       Terraform = "true"
       Owner     = "sre/devops"
-      Project   = "lab-devops"
+      Project   = "lab-aws-IaC"
     }
   }
 }

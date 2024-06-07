@@ -14,6 +14,13 @@ variable "count_available_subnets" {
   description = "Numero de Zonas de disponibilidade"
 }
 
+variable "public_subnet_tags" {
+  description = "Tags adicionais"  
+}
+
+variable "private_subnet_tags" {
+  description = "Tags adicionais"  
+}
 
 variable "vpc" {
   type        = string

@@ -3,55 +3,40 @@
 ![AWS](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 - [x] Status:  Ainda em desenvolvimento.
 ###
-### Módulo para criar uma VPC na AWS composta dos recursos, Vpc, subnets (publicas e privadas), network Acls, route tables e internet gateway. Para utilizar este módulo é necessário os seguintes arquivos especificados logo abaixo:
+#### Módulo para criar uma VPC na AWS composta dos recursos, Vpc, subnets (publicas e privadas), network Acls, route tables e internet gateway. 
 
-   <summary>provider.tf - Arquivo com os providers.</summary>
 
-```hcl
-provider "aws" {
-  region = local.region
-  default_tags {
-    tags = {
-      Terraform = "true"
-      Owner     = "sre/devops"
-      Project   = "lab-devops"
-    }
-  }
-}
-```
 
-   <summary>versions.tf - Arquivo com as versões dos providers.</summary>
 
-```hcl
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-```
 #
-<summary>main.tf - Arquivo que irá consumir o módulo para criar a infraestrutura.</summary>
+<summary>main.tf - Exemplo de utilização do módulo configurando os valores no bloco locals.</summary>
 
 ```hcl
 locals {
   region                  = "us-east-1"
   cidr_vpc                = "10.10.0.0/16"
-  count_available_subnets = 3 # Quantidade de subnets publicas e privadas que deseja criar
-  tag_igw                 = "igw_devops"
-  route_table_tag         = "rt-devops"
-  create_nat_gateway      = false # Criar Nat Gateway "true ou false"
-  nat_gateway_name        = "natgw-devops"
-  nat-eip                 = "eip-devops"
-  subnet_indices_for_nat  = [0] # indice de acordo com a quantidade de subnets e nat gateway que deseja criar, ex: [0, 1, 2]
+  count_available_subnets = 3 
+  tag_igw                 = "igw_example"
+  route_table_tag         = "rt-example"
+  create_nat_gateway      = false 
+  nat_gateway_name        = "natgw-example"
+  nat-eip                 = "eip-example"
+  subnet_indices_for_nat  = [0]
   tags_vpc = {
-    Name        = "vpc-devops"
+    Name        = "vpc-example"
     Environment = "Production"
   }
-}
+  
+  public_subnet_tags = {
+    # "kubernetes.io/cluster/cluster_name" = "shared"
+    # "kubernetes.io/role/elb" = "1"
+  }
 
+  private_subnet_tags = {
+    # "kubernetes.io/cluster/cluster_name" = "shared"
+    # "kubernetes.io/role/internal-elb" = "1"
+  }
+}
 
 module "vpc" {
   source                  = "./vpc"
@@ -67,10 +52,12 @@ module "vpc" {
   nat-eip                 = local.nat-eip
   subnet_indices_for_nat  = local.subnet_indices_for_nat
   tags_vpc                = local.tags_vpc
+  public_subnet_tags = local.public_subnet_tags
+  private_subnet_tags = local.private_subnet_tags
 }
 ```
 #
-<summary>variables.tf - Arquivo que contém as variáveis que o módulo irá utilizar e pode ter os valores alterados de acordo com a necessidade.</summary>
+<summary>variables.tf - Para Network ACLs segue exemplo da variável liberando algumas portas e protoolos.</summary>
 
 ```hcl
 variable "network_acl" {
@@ -84,27 +71,40 @@ variable "network_acl" {
   }
 }
 ```
-#
-<summary>outputs.tf - Outputs de recursos que podem ser utilizados em outros módulos.</summary>
-
-```hcl
-output "vpc" {
-  description = "Idendificador da VPC"
-  value       = module.vpc.vpc
-}
-
-output "public_subnet" {
-  description = "Subnet public "
-  value       = module.vpc.public_subnet
-}
-
-output "private_subnet" {
-  description = "Subnet private "
-  value       = module.vpc.private_subnet
-}
-
+#### Comandos Terraform
+Para utilizar o módulo deste repositório, siga os seguintes passos:
+* 1 - Clone o repositório para o seu ambiente local.
+* 2 - Configure as credenciais da AWS exportando AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY. (Obs: O export das credenciais é somente um exemplo para fins de testes.)
+* 3 - Execute os comandos Terraform:
+```sh
+terraform init
+terraform plan
+terraform apply
 ```
 
+### Instruções Adicionais
+* Ajuste o bloco locals dentro do arquivo main.tf conforme necessário para configurar a região e outros detalhes da infraestrutura.
+* Certifique-se de configurar um bucket S3 e uma tabela DynamoDB para armazenar o tfstate do módulo, se necessário.
+* Revise e ajuste os valores padrão das variáveis e dos locais conforme sua necessidade.
+* Certifique-se de possuir as credenciais da AWS corretamente configuradas e o terraform instalado.
+* Também é possível utilizar o container do terraform dentro da pasta do seu projeto da seguinte forma:
+  - `docker run -it --rm -v $PWD:/app -w /app --entrypoint "" hashicorp/terraform:light sh` 
+
+
+### Estrutura do Projeto
+* `main.tf`: Arquivo principal que consome o módulo para criar a infraestrutura.
+* `variables.tf`: Arquivo contendo as variáveis utilizadas pelo módulo.
+* `outputs.tf`: Arquivo contendo as saídas de recursos que podem ser utilizadas em outros módulos.
+* `provider.tf`: Arquivo com os providers necessários.
+* `versions.tf`: Arquivo com as versões dos providers.
+
+### Recursos Criados
+* VPC
+* Subnets (públicas e privadas)
+* Network ACLs
+* Route tables
+* Internet Gateway
+* Nat Gateway (opcional)
 
 ## Requirements
 
@@ -148,6 +148,8 @@ No modules.
 | <a name="input_nat-eip"></a> [nat-eip](#input\_nat-eip) | name para eip | `string` | n/a | yes |
 | <a name="input_nat_gateway_name"></a> [nat\_gateway\_name](#input\_nat\_gateway\_name) | nat gateway name | `string` | n/a | yes |
 | <a name="input_network_acl"></a> [network\_acl](#input\_network\_acl) | Regras de network acl | `map(any)` | n/a | yes |
+| <a name="input_private_subnet_tags"></a> [private\_subnet\_tags](#input\_private\_subnet\_tags) | n/a | `any` | n/a | yes |
+| <a name="input_public_subnet_tags"></a> [public\_subnet\_tags](#input\_public\_subnet\_tags) | n/a | `any` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Região na AWS | `string` | n/a | yes |
 | <a name="input_route_table_tag"></a> [route\_table\_tag](#input\_route\_table\_tag) | Tag Name das route tables | `string` | n/a | yes |
 | <a name="input_subnet_indices_for_nat"></a> [subnet\_indices\_for\_nat](#input\_subnet\_indices\_for\_nat) | Quantidade a ser criado de acordo com a necessidade fornecendo o indice da quantidade de subnets | `list(number)` | n/a | yes |
@@ -163,34 +165,3 @@ No modules.
 | <a name="output_public_subnet"></a> [public\_subnet](#output\_public\_subnet) | Subnet public |
 | <a name="output_vpc"></a> [vpc](#output\_vpc) | Idendificador da VPC |
 | <a name="output_vpc_cidrblock"></a> [vpc\_cidrblock](#output\_vpc\_cidrblock) | Idendificador da VPC |
-
-#
-## Como usar.
-  - Para utilizar localmente baixe o repositório e ajuste o bloco `locals` dentro de `main.tf` de acordo com a necessidade de região e configurações dos recursos como range de ip da vpc, quantidade de subnets, etc.
-  - O `backend.tf`, caso necessite será preciso criar um bucket S3 e uma tabela no dynamodb para armazenar o tfstate do módulo, mas caso queira testar sem é só comentar ou deletar o arquivo.
-  - Após criar os arquivos, atente-se aos valores default das variáveis e também em `locals` dentro do `main.tf`, pois podem ser alterados de acordo com sua necessidade.
-  - No caso em `locals` a variável `create_nat_gateway` esta como `false`, mas caso necessite que a subnet privada tenha saída para internet é só alterar para `true` e na variável `subnet_indices_for_nat`, pode-se
-    ajustar o índice como comentado no próprio arquivo, como por exemplo, caso tenha 3 subnets e queira um nat para cada uma delas é só ajustar no array [0, 1, 2].
-  - Ainda dentro de `locals` a variável `count_available_subnets` define o quantidade de zonas de disponibilidade, públicas e privadas que seram criadas nessa Vpc.
-  - Certifique-se que possua as credenciais da AWS - **`AWS_ACCESS_KEY_ID`** e **`AWS_SECRET_ACCESS_KEY`**.
-
-### Comandos
-Para utilizar o módulo deste repositório é necessário ter o terraform instalado ou utilizar o container do terraform dentro da pasta do seu projeto da seguinte forma:
-
-* `docker run -it --rm -v $PWD:/app -w /app --entrypoint "" hashicorp/terraform:light sh` 
-    
-Em seguida exporte as credenciais da AWS:
-
-* `export AWS_ACCESS_KEY_ID=sua_access_key_id`
-* `export AWS_SECRET_ACCESS_KEY=sua_secret_access_key`
-  
-- Obs: O export das credenciais é somente um exemplo para fins de testes.
-    
-Agora é só executar os comandos do terraform:
-
-* `terraform init` - Comando irá baixar todos os modulos e plugins necessários.
-* `terraform fmt` - Para verificar e formatar a identação dos arquivos.
-* `terraform validate` - Para verificar e validar se o código esta correto.
-* `terraform plan` - Para criar um plano de todos os recursos que serão utilizados.
-* `terraform apply` - Para aplicar a criação/alteração dos recursos. 
-* `terraform destroy` - Para destruir todos os recursos que foram criados pelo terraform. 

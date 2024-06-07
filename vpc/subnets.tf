@@ -14,10 +14,9 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index % local.count_azs]
   vpc_id            = var.vpc
 
-  tags = {
+  tags = merge(var.private_subnet_tags, {
     Name = "Private-${count.index + 1}"
-
-  }
+  }) 
 }
 
 resource "aws_subnet" "public" {
@@ -27,8 +26,8 @@ resource "aws_subnet" "public" {
   vpc_id                  = var.vpc
   map_public_ip_on_launch = true
 
-  tags = {
+  tags = merge(var.public_subnet_tags, {
     Name = "Public-${count.index + 1}"
-  }
+  })
 }
 
