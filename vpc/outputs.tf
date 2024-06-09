@@ -9,11 +9,11 @@ output "vpc" {
 }
 
 output "public_subnet" {
-  description = "Subnet public "
+  description = "Subnet public"
   value       = aws_subnet.public[*].id
 }
 
 output "private_subnet" {
-  description = "Subnet private "
+  description = "Subnet private"
   value       = aws_subnet.private[*].id
 }
