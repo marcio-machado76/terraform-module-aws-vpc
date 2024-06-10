@@ -13,7 +13,6 @@ locals {
     # "kubernetes.io/cluster/cluster_name" = "shared"
     # "kubernetes.io/role/elb" = "1"
   }
-
   private_subnet_tags = {
     # "kubernetes.io/cluster/cluster_name" = "shared"
     # "kubernetes.io/role/internal-elb" = "1"
@@ -22,7 +21,6 @@ locals {
     Name        = "vpc-example"
     Environment = "Production"
   }
-
 }
 
 module "vpc" {
