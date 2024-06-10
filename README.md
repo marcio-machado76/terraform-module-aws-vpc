@@ -163,11 +163,11 @@ No modules.
 |------|-------------|
 | <a name="output_igw_arn"></a> [igw\_arn](#output\_igw\_arn) | ARN do Internet Gateway |
 | <a name="output_igw_id"></a> [igw\_id](#output\_igw\_id) | ID do Internet Gateway |
-| <a name="output_nat_ids"></a> [nat\_ids](#output\_nat\_ids) | Lista de allocation ID de Elastic IPs criados para AWS NAT Gateway |
+| <a name="output_nat_ids"></a> [nat\_ids](#output\_nat\_ids) | Lisa de allocation ID de Elastic IPs criados para AWS NAT Gateway |
 | <a name="output_natgw_ids"></a> [natgw\_ids](#output\_natgw\_ids) | ID do Nat Gateway |
 | <a name="output_natgw_interface_ids"></a> [natgw\_interface\_ids](#output\_natgw\_interface\_ids) | ID da interface associada ao NAT Gateways |
-| <a name="output_private_subnet"></a> [private\_subnet](#output\_private\_subnet) | Subnet private |
-| <a name="output_public_subnet"></a> [public\_subnet](#output\_public\_subnet) | Subnet public |
+| <a name="output_private_subnet"></a> [private\_subnet](#output\_private\_subnet) | IDs das subnets privadas |
+| <a name="output_public_subnet"></a> [public\_subnet](#output\_public\_subnet) | IDs das subnets publicas |
 | <a name="output_vpc"></a> [vpc](#output\_vpc) | Idendificador da VPC |
 | <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | ARN da VPC |
 | <a name="output_vpc_cidrblock"></a> [vpc\_cidrblock](#output\_vpc\_cidrblock) | Range ip da VPC |
