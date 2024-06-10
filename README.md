@@ -22,20 +22,18 @@ locals {
   nat_gateway_name        = "natgw-example"
   nat-eip                 = "eip-example"
   subnet_indices_for_nat  = [0]
-  tags_vpc = {
-    Name        = "vpc-example"
-    Environment = "Production"
-  }
-  
   public_subnet_tags = {
     # "kubernetes.io/cluster/cluster_name" = "shared"
     # "kubernetes.io/role/elb" = "1"
   }
-
   private_subnet_tags = {
     # "kubernetes.io/cluster/cluster_name" = "shared"
     # "kubernetes.io/role/internal-elb" = "1"
   }
+  tags_vpc = {
+    Name        = "vpc-example"
+    Environment = "Production"
+  }  
 }
 
 module "vpc" {
