@@ -16,7 +16,7 @@ resource "aws_subnet" "private" {
 
   tags = merge(var.private_subnet_tags, {
     Name = "Private-${count.index + 1}"
-  }) 
+  })
 }
 
 resource "aws_subnet" "public" {
