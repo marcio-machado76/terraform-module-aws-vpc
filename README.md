@@ -50,8 +50,8 @@ module "vpc" {
   nat-eip                 = local.nat-eip
   subnet_indices_for_nat  = local.subnet_indices_for_nat
   tags_vpc                = local.tags_vpc
-  public_subnet_tags = local.public_subnet_tags
-  private_subnet_tags = local.private_subnet_tags
+  public_subnet_tags      = local.public_subnet_tags
+  private_subnet_tags     = local.private_subnet_tags
 }
 ```
 #
