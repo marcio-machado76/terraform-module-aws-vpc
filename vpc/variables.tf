@@ -15,11 +15,11 @@ variable "count_available_subnets" {
 }
 
 variable "public_subnet_tags" {
-  description = "Tags adicionais"  
+  description = "Tags adicionais"
 }
 
 variable "private_subnet_tags" {
-  description = "Tags adicionais"  
+  description = "Tags adicionais"
 }
 
 variable "vpc" {

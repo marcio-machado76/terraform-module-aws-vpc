@@ -85,7 +85,7 @@ terraform apply
 ### Instruções Adicionais
 * Ajuste o bloco locals dentro do arquivo main.tf conforme necessário para configurar a região e outros detalhes da infraestrutura.
 * Certifique-se de configurar um bucket S3 e uma tabela DynamoDB para armazenar o tfstate do módulo, se necessário.
-* Revise e ajuste os valores padrão das variáveis e dos locais conforme sua necessidade.
+* Revise e ajuste os valores padrão das variáveis e do bloco de locals conforme sua necessidade.
 * Certifique-se de possuir as credenciais da AWS corretamente configuradas e o terraform instalado.
 * Também é possível utilizar o container do terraform dentro da pasta do seu projeto da seguinte forma:
   - `docker run -it --rm -v $PWD:/app -w /app --entrypoint "" hashicorp/terraform:light sh` 
@@ -148,11 +148,11 @@ No modules.
 | <a name="input_nat-eip"></a> [nat-eip](#input\_nat-eip) | name para eip | `string` | n/a | yes |
 | <a name="input_nat_gateway_name"></a> [nat\_gateway\_name](#input\_nat\_gateway\_name) | nat gateway name | `string` | n/a | yes |
 | <a name="input_network_acl"></a> [network\_acl](#input\_network\_acl) | Regras de network acl | `map(any)` | n/a | yes |
-| <a name="input_private_subnet_tags"></a> [private\_subnet\_tags](#input\_private\_subnet\_tags) | n/a | `any` | n/a | yes |
-| <a name="input_public_subnet_tags"></a> [public\_subnet\_tags](#input\_public\_subnet\_tags) | n/a | `any` | n/a | yes |
+| <a name="input_private_subnet_tags"></a> [private\_subnet\_tags](#input\_private\_subnet\_tags) | Tags adicionais | `any` | n/a | yes |
+| <a name="input_public_subnet_tags"></a> [public\_subnet\_tags](#input\_public\_subnet\_tags) | Tags adicionais | `any` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Região na AWS | `string` | n/a | yes |
 | <a name="input_route_table_tag"></a> [route\_table\_tag](#input\_route\_table\_tag) | Tag Name das route tables | `string` | n/a | yes |
-| <a name="input_subnet_indices_for_nat"></a> [subnet\_indices\_for\_nat](#input\_subnet\_indices\_for\_nat) | Quantidade a ser criado de acordo com a necessidade fornecendo o indice da quantidade de subnets, ex (subnet_indices_for_nat  = [0, 1, 2]) | `list(number)` | n/a | yes |
+| <a name="input_subnet_indices_for_nat"></a> [subnet\_indices\_for\_nat](#input\_subnet\_indices\_for\_nat) | Quantidade a ser criado de acordo com a necessidade fornecendo o indice da quantidade de subnets | `list(number)` | n/a | yes |
 | <a name="input_tag_igw"></a> [tag\_igw](#input\_tag\_igw) | Tag Name do internet gateway | `string` | n/a | yes |
 | <a name="input_tags_vpc"></a> [tags\_vpc](#input\_tags\_vpc) | Tags para VPC | `map(string)` | n/a | yes |
 | <a name="input_vpc"></a> [vpc](#input\_vpc) | Id da VPC | `string` | n/a | yes |
@@ -161,7 +161,13 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_igw_arn"></a> [igw\_arn](#output\_igw\_arn) | ARN do Internet Gateway |
+| <a name="output_igw_id"></a> [igw\_id](#output\_igw\_id) | ID do Internet Gateway |
+| <a name="output_nat_ids"></a> [nat\_ids](#output\_nat\_ids) | Lista de allocation ID de Elastic IPs criados para AWS NAT Gateway |
+| <a name="output_natgw_ids"></a> [natgw\_ids](#output\_natgw\_ids) | ID do Nat Gateway |
+| <a name="output_natgw_interface_ids"></a> [natgw\_interface\_ids](#output\_natgw\_interface\_ids) | ID da interface associada ao NAT Gateways |
 | <a name="output_private_subnet"></a> [private\_subnet](#output\_private\_subnet) | Subnet private |
 | <a name="output_public_subnet"></a> [public\_subnet](#output\_public\_subnet) | Subnet public |
 | <a name="output_vpc"></a> [vpc](#output\_vpc) | Idendificador da VPC |
+| <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | ARN da VPC |
 | <a name="output_vpc_cidrblock"></a> [vpc\_cidrblock](#output\_vpc\_cidrblock) | Range ip da VPC |
