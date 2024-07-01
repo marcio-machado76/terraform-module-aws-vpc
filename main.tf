@@ -1,4 +1,3 @@
-
 locals {
   region                  = "us-east-1"
   cidr_vpc                = "10.10.0.0/16"
@@ -9,19 +8,25 @@ locals {
   nat_gateway_name        = "natgw-example"
   nat-eip                 = "eip-example"
   subnet_indices_for_nat  = [0]
+  
   public_subnet_tags = {
+    # Exemplo de tags para subnets públicas requeridas para utilização com eks
     # "kubernetes.io/cluster/cluster_name" = "shared"
     # "kubernetes.io/role/elb" = "1"
   }
+  
   private_subnet_tags = {
+    # Exemplo de tags para subnets privadas requeridas para utilização com eks
     # "kubernetes.io/cluster/cluster_name" = "shared"
     # "kubernetes.io/role/internal-elb" = "1"
   }
+  
   tags_vpc = {
     Name        = "vpc-example"
     Environment = "Production"
   }
 }
+
 
 module "vpc" {
   source                  = "./vpc"
@@ -40,4 +45,3 @@ module "vpc" {
   public_subnet_tags      = local.public_subnet_tags
   private_subnet_tags     = local.private_subnet_tags
 }
-
