@@ -52,5 +52,5 @@ resource "aws_route_table_association" "private" {
 resource "aws_route_table_association" "natgw" {
   count = var.create_nat_gateway ? length(var.subnet_indices_for_nat) : 0
   subnet_id      = element(aws_subnet.private.*.id, count.index)
-  route_table_id = element(aws_nat_gateway.nat_gateway.*.id, count.index)
+  route_table_id = element(aws_route_table.natgw.*.id, count.index)
 }
